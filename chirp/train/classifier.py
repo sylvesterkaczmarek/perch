@@ -407,8 +407,8 @@ def export_tf_model(
   # Get model_ouput keys from output_head_metadatas and add the 'embedding' key
   if output_keys is None:
     output_keys = set(md.key for md in model_bundle.output_head_metadatas)  # pyrefly: ignore[bad-assignment, not-iterable]
-    output_keys.add("embedding")  # Add 'embedding' if not already present
-    output_keys.add("frontend")  # Add 'frontend' if not already present
+    output_keys.add("embedding")  # Add 'embedding' if not already present  # pyrefly: ignore[missing-attribute]
+    output_keys.add("frontend")  # Add 'frontend' if not already present  # pyrefly: ignore[missing-attribute]
   if export_dir is None:
     export_dir = workdir
 

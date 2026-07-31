@@ -38,7 +38,7 @@ class ClassAverage(metrics.Metric):
     return cls(total=jnp.zeros((1,), float), count=jnp.zeros((1,), int))
 
   @classmethod
-  def from_model_output(
+  def from_model_output(  # pyrefly: ignore[bad-override]
       cls, values: tuple[jnp.ndarray, jnp.ndarray], **_
   ) -> metrics.Metric:
     return cls(total=values[0] @ values[1], count=jnp.sum(values[1], axis=0))
