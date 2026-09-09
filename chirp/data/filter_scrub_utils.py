@@ -597,8 +597,8 @@ def scrub_all_but_class_list(key: str, class_list_name: str) -> Query:
   return Query(
       op=TransformOp.SCRUB_ALL_BUT,
       kwargs={  # pyrefly: ignore[bad-argument-type]
-          'key': key,
-          'values': classes,
+          'key': key,  # pyrefly: ignore[bad-assignment]
+          'values': classes,  # pyrefly: ignore[bad-assignment]
       },
   )
 

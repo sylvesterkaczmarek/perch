@@ -82,7 +82,7 @@ def get_upstream_data_query(ar_only: bool = False) -> fsu.QuerySequence:
       fsu.QuerySequence(
           mask_query=fsu.Query(
               fsu.MaskOp.IN,
-              {"key": "species_code", "values": ar_species},  # pyrefly: ignore[bad-argument-type]
+              {"key": "species_code", "values": ar_species},  # pyrefly: ignore[bad-argument-type, bad-assignment]
           ),
           queries=[
               # Recall that recordings that contain downstream_species in
@@ -110,7 +110,7 @@ def get_upstream_data_query(ar_only: bool = False) -> fsu.QuerySequence:
                   fsu.TransformOp.SAMPLE,
                   {  # pyrefly: ignore[bad-argument-type]
                       "target_fg": {k: 10 for k in ar_species},
-                      "prng_seed": AR_SAMPLING_PRNG_SEED,
+                      "prng_seed": AR_SAMPLING_PRNG_SEED,  # pyrefly: ignore[bad-assignment]
                   },
               ),
           ],
@@ -119,8 +119,8 @@ def get_upstream_data_query(ar_only: bool = False) -> fsu.QuerySequence:
       fsu.Query(
           op=fsu.TransformOp.SCRUB,
           kwargs={  # pyrefly: ignore[bad-argument-type]
-              "key": "bg_species_codes",
-              "values": downstream_species + ar_species,
+              "key": "bg_species_codes",  # pyrefly: ignore[bad-assignment]
+              "values": downstream_species + ar_species,  # pyrefly: ignore[bad-assignment]
           },
       ),
   ]
@@ -181,15 +181,15 @@ def get_downstream_data_query() -> fsu.QuerySequence:
       fsu.Query(
           op=fsu.TransformOp.SCRUB_ALL_BUT,
           kwargs={  # pyrefly: ignore[bad-argument-type]
-              "key": "bg_species_codes",
-              "values": downstream_species + ar_species,
+              "key": "bg_species_codes",  # pyrefly: ignore[bad-assignment]
+              "values": downstream_species + ar_species,  # pyrefly: ignore[bad-assignment]
           },
       ),
       fsu.Query(
           op=fsu.TransformOp.SCRUB_ALL_BUT,
           kwargs={  # pyrefly: ignore[bad-argument-type]
-              "key": "species_code",
-              "values": downstream_species + ar_species,
+              "key": "species_code",  # pyrefly: ignore[bad-assignment]
+              "values": downstream_species + ar_species,  # pyrefly: ignore[bad-assignment]
           },
       ),
   ])
@@ -257,8 +257,8 @@ def get_class_representatives_data_query() -> fsu.QuerySequence:
       fsu.Query(
           op=fsu.TransformOp.SCRUB_ALL_BUT,
           kwargs={  # pyrefly: ignore[bad-argument-type]
-              "key": "bg_species_codes",
-              "values": species,
+              "key": "bg_species_codes",  # pyrefly: ignore[bad-assignment]
+              "values": species,  # pyrefly: ignore[bad-assignment]
           },
       ),
   ])

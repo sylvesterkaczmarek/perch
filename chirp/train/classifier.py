@@ -422,7 +422,7 @@ def export_tf_model(
           variables, audio_batch, train=False
       )
       # Will use all keys in configs.init_config.output_head_metadatas
-      return {k: v for k, v in model_outputs.items() if k in output_keys}  # pyrefly: ignore[missing-attribute]
+      return {k: v for k, v in model_outputs.items() if k in output_keys}  # pyrefly: ignore[missing-attribute, not-iterable]
 
     if polymorphic_batch:
       shape = (None,) + input_shape

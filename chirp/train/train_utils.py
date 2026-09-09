@@ -133,12 +133,14 @@ class MultiAverage(clu_metrics.Average):
     mask = mask.astype(bool)
     axes = tuple(np.arange(values.ndim - 1))
     return cls(
-        total=jnp.where(mask, values, jnp.zeros_like(values)).sum(axis=axes),
+        total=jnp.where(mask, values, jnp.zeros_like(values)).sum(axis=axes),  # pyrefly: ignore[bad-argument-type]
         count=jnp.where(
             mask,
             jnp.ones_like(values, dtype=jnp.int32),
             jnp.zeros_like(values, dtype=jnp.int32),
-        ).sum(axis=axes),
+        ).sum(
+            axis=axes
+        ),  # pyrefly: ignore[bad-argument-type]
     )
 
   def compute(self):
