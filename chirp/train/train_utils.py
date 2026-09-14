@@ -139,7 +139,7 @@ class MultiAverage(clu_metrics.Average):
             jnp.ones_like(values, dtype=jnp.int32),
             jnp.zeros_like(values, dtype=jnp.int32),
         ).sum(
-            axis=axes
+            axis=axes  # pyrefly: ignore[bad-argument-type]
         ),  # pyrefly: ignore[bad-argument-type]
     )
 
