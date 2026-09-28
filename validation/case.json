@@ -1,0 +1,17 @@
+{
+  "repo": "google-research/perch",
+  "base_branch": "main",
+  "base": "35f3e6b6acdc9df838d03a0584b2b7bdca24b08a",
+  "source": "chirp/inference/call_density.py",
+  "test": "chirp/inference/tests/call_density_sampling_test.py",
+  "suite_files": [
+    "chirp/inference/tests/call_density_sampling_test.py",
+    "chirp/inference/tests/call_density_test.py",
+    "chirp/inference/tests/search_test.py"
+  ],
+  "issue_url": "https://github.com/google-research/perch/issues/788",
+  "issue": 788,
+  "branch": "fix/undersubscribed-sampling-bins-20260928",
+  "title": "Limit call-density samples to the results available in each bin",
+  "head": "3d6d7cdd4a31f110e0d122e60742ce9006a4cb7d"
+}

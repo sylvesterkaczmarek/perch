@@ -1,0 +1,48 @@
+name: Exact-source regression validation
+on:
+  push:
+    branches:
+      - 'validation/undersubscribed-sampling-bins-20260928'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.10', '3.11']
+    env:
+      TF_CPP_MIN_LOG_LEVEL: '2'
+      TF_NUM_INTRAOP_THREADS: '1'
+      TF_NUM_INTEROP_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      CUDA_VISIBLE_DEVICES: ''
+      COVERAGE_FILE: '${{ github.workspace }}/evidence/.coverage'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: sylvesterkaczmarek/perch
+          ref: '3d6d7cdd4a31f110e0d122e60742ce9006a4cb7d'
+          path: work
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install test dependencies
+        run: python -m pip install 'pytest==9.1.1' 'pytest-cov==7.1.0' 'ruff==0.16.9' 'pyink==26.5.1' 'absl-py' 'tensorflow==2.20.0' 'numpy==2.0.2' 'pandas==2.2.3' 'perch-hoplite==0.1.1' 'ipywidgets==8.1.7' 'scipy' 'scikit-learn' 'etils[epath]'
+      - name: Verify submitted source and baseline controls
+        run: python validation/verify.py work evidence
+      - name: Preserve test evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: evidence-${{ matrix.python }}
+          path: evidence
+          retention-days: 14
