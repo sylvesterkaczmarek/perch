@@ -645,7 +645,7 @@ def slice_peaked_audio(
   # Wrap audio to the target length if it's shorter than that.
   audio = pad_to_length_if_shorter(audio, target_length)  # pyrefly: ignore[bad-argument-type]
 
-  peaks = find_peaks_from_audio(audio, sample_rate_hz, max_intervals)
+  peaks = find_peaks_from_audio(audio, sample_rate_hz, max_intervals)  # pyrefly: ignore[bad-argument-type]
   left_shift = target_length // 2
   right_shift = target_length - left_shift
 

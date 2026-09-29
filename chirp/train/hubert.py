@@ -188,9 +188,9 @@ def keyed_cross_entropy(
 ) -> jnp.ndarray | None:
   """Cross entropy for the specified taxonomic label set."""
   outputs = getattr(outputs, key)
-  outputs = outputs[readout_index]
+  outputs = outputs[readout_index]  # pyrefly: ignore[bad-index]
 
-  ce = optax.sigmoid_binary_cross_entropy(outputs, kwargs[key])
+  ce = optax.sigmoid_binary_cross_entropy(outputs, kwargs[key])  # pyrefly: ignore[bad-argument-type]
   return ce
 
 
@@ -198,8 +198,8 @@ def keyed_map(
     key: str, outputs: hubert.HubertOutput, readout_index: int = 0, **kwargs
 ) -> jnp.ndarray | None:
   outputs = getattr(outputs, key)
-  outputs = outputs[readout_index]
-  return metrics.average_precision(scores=outputs, labels=kwargs[key])
+  outputs = outputs[readout_index]  # pyrefly: ignore[bad-index]
+  return metrics.average_precision(scores=outputs, labels=kwargs[key])  # pyrefly: ignore[bad-argument-type]
 
 
 def final_loss(
